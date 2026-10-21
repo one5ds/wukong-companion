@@ -1,0 +1,38 @@
+MIT License
+
+Copyright (c) 2026 一觉同学 (Yi Jue) / 《勿空与无师》
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+NOTE / 注意:
+
+This MIT license applies ONLY to source code in this repository
+(scripts, build files, CI configs, evaluation runners).
+
+It does NOT apply to:
+  - the prompt and documentation texts under core/, adapters/, evals/, docs/
+    (licensed under CC BY-NC-ND 4.0, see LICENSE-CONTENT.md)
+  - the book 《勿空与无师》 and all its content, characters, cover art and IP
+    (all rights reserved, not licensed by this repository, see COPYRIGHT.md)
+
+本 MIT 许可仅适用于本仓库的源代码。
+core/、adapters/、evals/、docs/ 下的提示词与文档适用 CC BY-NC-ND 4.0。
+《勿空与无师》原书及其人物、封面、插图、IP 形象不随本仓库授权。
