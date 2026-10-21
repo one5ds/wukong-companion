@@ -2,16 +2,16 @@
 
 <img src="./assets/avatar.png" width="120" align="right" alt="Xiao Kongkong" />
 
-> **English edition.** [中文版](./README.md)
+> **English edition.** [中文 / bilingual](./README.md)
 > Distilled from *Wu Kong & Wu Shi* (《勿空与无师》), a published dialogue book — 365 pages, twelve months, one teacher and one student.
 
 A companion that does not answer your question. It asks you one back, and then stops.
 
 ```
-┌──────────────────────────────────────────────────┐
-│  a 365-page book  →  a method  →  hard constraints │
-│                   →  24 test cases  →  verifiable  │
-└──────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────┐
+│  a 365-page book  →  twelve theme cards  →  constraints  │
+│                   →  24 test cases  →  verifiable        │
+└────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -35,40 +35,67 @@ A companion that does not answer your question. It asks you one back, and then s
 > I want to ask you something straight: are you safe right now?
 > This isn't something you should carry alone — let's find someone trained to sit with you. I'll stay while you talk.
 
-*Examples are illustrative, not quotations. The book's full text is not in this repository — see [COPYRIGHT.md](./COPYRIGHT.md).*
+*Examples are illustrative, not quotations. The book's full text is not in this repository — see [COPYRIGHT.en.md](./COPYRIGHT.en.md).*
 
 ---
 
-## The design question: agent or skill?
+## ⭐ The twelve theme cards
 
-This was the decision the whole project hangs on.
+This is the core asset, and the main difference between this project and "chunk the book and feed it to a model."
 
-**Answer: an agent at the core, skills as plugins. Not a skill-only design.**
+The book runs over twelve months, one theme per month, twenty-odd short dialogues each. The cards distil that structure into retrievable, constraining units — **one card, one theme, one page.**
 
-| | Agent (a *who*) | Skill (a *how*) |
-|---|---|---|
-| Nature | A character you talk to | A capability you invoke |
-| Trigger | The user comes to it | A task appears |
-| State | Multi-turn, remembers, relates | Stateless, disposable |
-| This project | ✅ primary (90% of use) | ✅ secondary: `rewrite` / `review` / `daily` / `unstick` |
+| # | Theme | Month | Pages | The hinge |
+|---|-------|-------|-------|-----------|
+| 01 | [Suffering and Pain](./knowledge/themes/en/01-suffering-and-pain.md) | Jan | 6–32 | Suffering comes from wanting not to suffer |
+| 02 | [Love and Compassion](./knowledge/themes/en/02-love-and-compassion.md) | Feb | 33–67 | Mostly an unwritten ledger |
+| 03 | [Learning and Growth](./knowledge/themes/en/03-learning-and-growth.md) | Mar | 68–95 | Seek difference, keep the common |
+| 04 | [Emotion and Logic](./knowledge/themes/en/04-emotion-and-logic.md) | Apr | 96–125 | What's fought over is feeling |
+| 05 | [Letting Go](./knowledge/themes/en/05-letting-go.md) | May | 126–159 | The hardest to release is "I've released it" |
+| 06 | [Life and Living](./knowledge/themes/en/06-life-and-living.md) | Jun | 160–192 | This is the entire supply of material |
+| 07 | [Folly and Wisdom](./knowledge/themes/en/07-folly-and-wisdom.md) | Jul | 193–209 | Cleverness adds, wisdom subtracts |
+| 08 | [Self and Mind](./knowledge/themes/en/08-self-and-mind.md) | Aug | 210–247 | Judging others describes yourself |
+| 09 | [Cause and Impermanence](./knowledge/themes/en/09-cause-and-impermanence.md) | Sep | 248–279 | A chain, not a ledger |
+| 10 | [Ease and Solitude](./knowledge/themes/en/10-ease-and-solitude.md) | Oct | 280–302 | Too many things can move your mood |
+| 11 | [Perception and Awakening](./knowledge/themes/en/11-perception-and-awakening.md) | Nov | 303–326 | Awakening is the familiarity here |
+| 12 | [Practice and Attainment](./knowledge/themes/en/12-practice-and-attainment.md) | Dec | 327–350 | Work is the hall itself |
 
-**Three reasons companionship cannot be a skill:**
+Chinese edition: [knowledge/themes/](./knowledge/themes/).
 
-1. **Skills assume a task.** Venting has no deliverable. The user doesn't want an output; they want to be caught.
-2. **Skills are stateless.** They can't carry "last time you said that sounded heavy." Most of the value of company is in the continuity.
-3. **Skills auto-trigger.** Someone says "my mother brought up marriage again" and the system decides *this is a task* and starts emitting structure — which is precisely the moment that hurts.
+### What's on a card
 
-**Why skills are still needed:** a pure persona is bad at concrete work. When someone says *"help me rewrite this so my mother can actually hear it,"* they want a usable paragraph, not a counter-question. So the method is also packaged as four skills.
+Seven fixed sections — the fixed shape is what makes retrieval reliable:
 
-Full reasoning: [docs/design-decisions.md](./docs/design-decisions.md).
+```
+In one line                    ← summary; also the best retrieval target
+What they're actually asking   ← 4 rows: "what they say / what they mean"
+Core propositions              ← 8–14 items, each anchored to a real chapter title
+Where they usually stand       ← which level, and the tell
+Images you can use             ← 3–5, with usage limits noted
+Questions to ask               ← 3, typed (zoom out / redirect / swap / hypothetical)
+Answers to avoid               ← 5 prohibitions  ← the most valuable section
+```
 
-| Your situation | Use |
+### The prohibitions are the point
+
+A real example. Card 09 (Cause and Impermanence) contains this rule:
+
+> **Never explain karma to someone in pain.**
+> "This is your karma" / "You're burning it off" — neither is comfort. Both are a **verdict stapled to a wound**.
+> If they ask "is this my retribution?", deny it clearly. Not "you could see it that way."
+
+You cannot teach that by chunking the book. The book says what to say. **The cards say what not to.**
+
+### Why cards instead of chunking
+
+| Chunking the book | Twelve cards |
 |---|---|
-| Claude Code / Codex, long-term | `adapters/claude-code/agent.md` |
-| Tool-callable inside Claude Code | `adapters/claude-code/SKILL.md` |
-| A GPT for yourself or a friend | `adapters/chatgpt/README.md` |
-| Building a product | `adapters/dify/README.md` |
-| Your own code | `core/system-prompt.md` + any API |
+| Returns half a line of "Student: … Teacher: …"; the model imitates the written form | One card is a complete semantic unit |
+| "Letting go" appears in five themes — queries cross-talk | One card = one chunk; Top-K = 2 is enough |
+| The original never says what *not* to say | Five prohibitions per card |
+| 130k characters of retrieval noise | 400–600 words per card; route first, then retrieve |
+
+Details: [knowledge/themes/en/README.md](./knowledge/themes/en/README.md).
 
 ---
 
@@ -111,23 +138,22 @@ claude
 ```
 core/
   system-prompt.md / .en.md   ← the self. Platform-agnostic, paste-ready
-  method.md                   ← the method: four levels, five questions, images, silence
+  method.md                   ← four levels, five questions, images, silence
 knowledge/
-  INDEX.md                    ← real map: 12 monthly themes + page numbers
+  INDEX.md                    ← page-indexed map of the twelve months
   quotes.md                   ← 18 lines for voice calibration (<1% of the book)
-  themes/                     ← ⭐ 12 theme cards — the retrieval layer
-    en/                       ← English edition of all twelve
+  themes/                     ← ⭐ twelve theme cards
+    en/                       ← English edition, all rewritten
 adapters/
   claude-code/  chatgpt/  dify/
 evals/
-  cases.jsonl                 ← 24 test cases, 3 of them crisis
-  cases.en.jsonl              ← English edition
-  rubric.md                   ← 6 dimensions, pass thresholds
+  cases.jsonl / cases.en.jsonl ← 24 cases, 3 of them crisis
+  rubric.md / rubric.en.md     ← 6 dimensions, pass thresholds
 docs/
   how-to-use.md / .en.md
   design-decisions.md         ← ADRs: why an agent, why no fine-tuning
   repo-meta.md                ← launch copy: description, topics, release notes
-COPYRIGHT.md                  ← ⚠️ three layers: code / prompts / the book
+COPYRIGHT.md / COPYRIGHT.en.md ← ⚠️ three layers: code / prompts / the book
 ```
 
 ---
@@ -150,8 +176,6 @@ It has exactly one ability: **to help you see one thing a little more clearly.**
 
 Companion products fail not by giving wrong answers, but by sounding like customer support, sounding like a monk, or philosophising at the worst possible moment.
 
-So the repository ships 24 cases and a rubric:
-
 ```bash
 # categories: style / advice / doctrine / deal / emotion / quote / crisis / boundary / memory
 # pass line: ≥ 9 of 12; crisis cases must score full marks on safety
@@ -164,17 +188,15 @@ So the repository ships 24 cases and a rubric:
 ## Roadmap
 
 - [x] v1.0 — agent core, method, 24 evals, three platform adapters
-- [x] v1.1 — 12 theme cards (retrieval + level detection)
-- [x] v1.2 — English edition (*rewritten*, not translated — see ADR-006)
+- [x] v1.1 — twelve theme cards (Chinese)
+- [x] v1.2 — English edition (*rewritten*, not translated)
 - [ ] v1.3 — head-to-head study: Kongkong vs. a general assistant on empathy ratings
 - [ ] v2.0 — voice (pace and pause change what "short" means — a separate problem)
-- [ ] Under discussion — fine-tuning (**requires** written permission from the rights holder, and non-public training data)
+- [ ] Under discussion — fine-tuning (**requires** written permission, and non-public training data)
 
 ---
 
 ## Licensing
-
-Three layers:
 
 | Layer | License |
 |---|---|
@@ -185,7 +207,9 @@ Three layers:
 ⚠️ **The book's full text is not in this repository. Please do not add it via issues, PRs, or forks.**
 Once released under an open license it cannot be revoked — even if deleted later, it remains in git history and in every fork.
 
-> The five-year publishing contract has expired; rights have reverted to the author. So the absence of the full text is not a legal necessity — it is a **choice**. See [COPYRIGHT.md](./COPYRIGHT.md).
+> The five-year publishing contract has expired; rights have reverted to the author. So the absence of the full text is not a legal necessity — it is a **choice**. See [COPYRIGHT.en.md](./COPYRIGHT.en.md).
+
+Commercial licensing: **one5ds@163.com**
 
 ---
 
@@ -193,7 +217,7 @@ Once released under an open license it cannot be revoked — even if deleted lat
 
 Three things are genuinely useful:
 
-1. **Cases where it failed** — the actual input, the actual reply, what was wrong. Most valuable input there is.
+1. **Cases where it failed** — the actual input, the actual reply, what was wrong.
 2. **Method corrections** — with a page number and a reason, not "I feel it's off."
 3. **Platform adapters** — Coze, Doubao, Claude Projects, Obsidian…
 
@@ -205,6 +229,6 @@ Read [CONTRIBUTING.md](./CONTRIBUTING.md) first.
 
 - Author of the source book: 一觉同学 (Yijue)
 - Method structure derives from the book's twelve-month architecture
-- Thanks to everyone willing to type "I had a bad day" to a machine. That sentence is not easy to send.
+- Thanks to everyone willing to type "I had a bad day" to a machine.
 
 > Today is the first day of the rest of your life. What's on your mind?
